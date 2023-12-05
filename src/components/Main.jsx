@@ -2,12 +2,11 @@ import React from 'react'
 import ListBox from './ListBox';
 import WatchedBox from './WatchedBox';
 
-function Main({ data1, data2, movies }) {
+function Main({ children }) {
   return (
     <main className="main">
-      <ListBox movies={movies} data1={data1} />
-      <WatchedBox data2={data2} />
+      {children}
     </main>
   )
-  }
+}
 export default Main
