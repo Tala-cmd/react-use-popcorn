@@ -7,6 +7,7 @@ import Box from "./Box";
 import MovieList from "./MovieList";
 import WatchedSummary from "./WatchedSummary";
 import WatchedMoviesList from "./WatchedMoviesList";
+import StarRating from "./StarRating";
 import { useState } from "react";
 
 const tempMovieData = [
