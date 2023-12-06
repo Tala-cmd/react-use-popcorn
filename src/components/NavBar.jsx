@@ -1,7 +1,4 @@
 import React from 'react'
-import Search from './Search';
-import Logo from './Logo';
-import NumResults from './Numresults';
 
 function NavBar( {children} ) {
   

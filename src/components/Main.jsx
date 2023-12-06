@@ -1,12 +1,6 @@
-import React from 'react'
-import ListBox from './ListBox';
-import WatchedBox from './WatchedBox';
+import React from "react";
 
 function Main({ children }) {
-  return (
-    <main className="main">
-      {children}
-    </main>
-  )
+   return <main className="main">{children}</main>;
 }
-export default Main
+export default Main;
