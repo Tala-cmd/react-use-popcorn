@@ -8,6 +8,7 @@ import MovieList from "./MovieList";
 import WatchedSummary from "./WatchedSummary";
 import WatchedMoviesList from "./WatchedMoviesList";
 import Loader from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
 
@@ -64,15 +65,28 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
-  const query = 'interstellar'
+  const [error, setError] = useState('')
+  const query = 'titan'
 
   useEffect(function(){
     async function fetchMovies(){
-      setIsLoading(true)
-      const result = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
-      const data= await result.json()
-      setMovies(data.Search)
-      setIsLoading(false)
+      try {
+        setIsLoading(true)
+        const response = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
+        
+        if(!response.ok) throw new Error('Something went wrong with fetching movies')
+  
+        const data= await response.json()
+
+        if(data.Response === 'False') throw new Error('Movie not found')
+        setMovies(data.Search)
+        // setIsLoading(false)
+      } catch (err){
+        console.log(err.message)
+        setError(err.message)
+      } finally {
+        setIsLoading(false)
+      }
     }
     fetchMovies();
   } ,[])
@@ -88,7 +102,9 @@ export default function App() {
 
         <Main data1={tempMovieData} data2={tempWatchedData}>
           <Box data1={tempMovieData} data2={tempWatchedData} >
-            {isLoading ? <Loader /> : <MovieList movies={movies} />}
+            {isLoading && <Loader />}
+            {error && <ErrorMessage message={error}/>}
+            {!isLoading && !error && <MovieList movies={movies}/>}
           </Box>
 
           <Box>
