@@ -62,16 +62,33 @@ const tempWatchedData = [
 const KEY = '1b2dc3ef'
 
 export default function App() {
+  const [query, setQuery] = useState("inception");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const query = 'titan'
+  const tempQuery = 'interstellar'
 
+    /*
+      useEffect(function(){
+        console.log('After the initial render')
+      },[])
+
+      useEffect(function(){
+        console.log('After every render')
+      })
+
+      useEffect(function(){
+        console.log('When query is changed')
+      },[query])
+
+      console.log('During render')
+    */
   useEffect(function(){
     async function fetchMovies(){
       try {
         setIsLoading(true)
+        setError('')
         const response = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
         
         if(!response.ok) throw new Error('Something went wrong with fetching movies')
@@ -88,15 +105,20 @@ export default function App() {
         setIsLoading(false)
       }
     }
+    if(query.length < 3){
+      setMovies([])
+      setError('')
+      return 
+    }
     fetchMovies();
-  } ,[])
+  } ,[query])
 
   
   return (
     <>
         <NavBar>
           <Logo />
-          <Search />
+          <Search query={query} setQuery={setQuery} />
           <NumResults movies={movies} />
         </NavBar>
 
