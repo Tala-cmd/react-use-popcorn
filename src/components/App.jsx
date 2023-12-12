@@ -9,6 +9,7 @@ import WatchedSummary from "./WatchedSummary";
 import WatchedMoviesList from "./WatchedMoviesList";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import MovieDetails from "./MovieDetails";
 import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
 
@@ -67,7 +68,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const tempQuery = 'interstellar'
+  const [selectedId, setSelectedId] = useState(null)
 
     /*
       useEffect(function(){
@@ -84,6 +85,15 @@ export default function App() {
 
       console.log('During render')
     */
+    
+  function handleSelectMovie(id){
+    setSelectedId((selectedId)=> id === selectedId? null : id)
+  }
+
+  function handleCloseMovie(){
+    setSelectedId(null)
+  }
+
   useEffect(function(){
     async function fetchMovies(){
       try {
@@ -97,6 +107,7 @@ export default function App() {
 
         if(data.Response === 'False') throw new Error('Movie not found')
         setMovies(data.Search)
+      console.log(data.Search)
         // setIsLoading(false)
       } catch (err){
         console.log(err.message)
@@ -126,12 +137,19 @@ export default function App() {
           <Box data1={tempMovieData} data2={tempWatchedData} >
             {isLoading && <Loader />}
             {error && <ErrorMessage message={error}/>}
-            {!isLoading && !error && <MovieList movies={movies}/>}
+            {!isLoading && !error && 
+              <MovieList movies={movies} onSelectMovie={handleSelectMovie}/>}
           </Box>
 
           <Box>
-            <WatchedSummary watched={watched} />
-            <WatchedMoviesList watched={watched} />
+            { selectedId ? <MovieDetails selectedId={selectedId} 
+            onCloseMovie={handleCloseMovie} /> 
+            : <>
+              <WatchedSummary watched={watched} />
+              <WatchedMoviesList watched={watched} />
+            </>
+            }
+            
           </Box>
         </Main>
     </>
