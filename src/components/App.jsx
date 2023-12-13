@@ -8,9 +8,7 @@ import MovieList from "./MovieList";
 import WatchedSummary from "./WatchedSummary";
 import WatchedMoviesList from "./WatchedMoviesList";
 import Loader from "./Loader";
-import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
-import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
 
 const tempMovieData = [
@@ -94,6 +92,16 @@ export default function App() {
     setSelectedId(null)
   }
 
+  function handleAddWatched(movie){
+    setWatched((watched)=> [...watched, movie])
+  }
+
+  function handleDeleteWatched(id){
+    setWatched((watched)=> watched.filter((movie)=>
+      movie.imdbID !== id))
+  }
+
+
   useEffect(function(){
     async function fetchMovies(){
       try {
@@ -142,11 +150,16 @@ export default function App() {
           </Box>
 
           <Box>
-            { selectedId ? <MovieDetails selectedId={selectedId} 
-            onCloseMovie={handleCloseMovie} /> 
+            { selectedId ?
+            <MovieDetails 
+              selectedId={selectedId} 
+              onCloseMovie={handleCloseMovie} 
+              onAddWatched={handleAddWatched}
+              watched={watched}
+              /> 
             : <>
               <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList watched={watched} onDeleteWatched={handleDeleteWatched} />
             </>
             }
             
