@@ -104,7 +104,7 @@ export default function App() {
         if(!response.ok) throw new Error('Something went wrong with fetching movies')
   
         const data= await response.json()
-
+        console.log(data)
         if(data.Response === 'False') throw new Error('Movie not found')
         setMovies(data.Search)
         console.log(data.Search)
@@ -136,7 +136,7 @@ export default function App() {
         <Main data1={tempMovieData} data2={tempWatchedData}>
           <Box data1={tempMovieData} data2={tempWatchedData} >
             {isLoading && <Loader />}
-            {error && <ErrorMessage message={error}/>}
+            
             {!isLoading && !error && 
               <MovieList movies={movies} onSelectMovie={handleSelectMovie}/>}
           </Box>
