@@ -102,7 +102,7 @@ export default function App() {
   }
 
 
-  useEffect(function(){
+  useEffect(function(){ 
     async function fetchMovies(){
       try {
         setIsLoading(true)
