@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-function useKey(key, action) {
+export function useKey(key, action) {
 
   useEffect(function(){
     function callback(e){
@@ -19,4 +19,3 @@ function useKey(key, action) {
   )
 }
 
-export default useKey

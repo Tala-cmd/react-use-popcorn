@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
-import useKey from "./useKey";
+import { useKey } from "./useKey";
 
 const KEY = "1b2dc3ef";
 
