@@ -21,7 +21,6 @@ export default function App() {
 
   const [watched, setWatched] = useLocalStorageState([], 'watched')
   
-
   function handleSelectMovie(id){
     setSelectedId((selectedId)=> id === selectedId? null : id)
   }
