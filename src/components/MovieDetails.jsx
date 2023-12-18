@@ -37,17 +37,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched}) {
     Genre: genre,
   } = movie;
 
-  //if(imdbRating > 8) [isTop, setIsTop] = useState(true)
-  //if(imdbRating > 8) return <p>Rendered fewer hooks than expected </p>
-
-  // const [isTop, setIsTop] = useState(imdbRating > 8);
-  // console.log(isTop)
-
-  // useEffect(function(){
-  //   setIsTop(imdbRating > 8)
-  
-  // }, [imdbRating])
-
   const isTop = imdbRating > 8
   console.log(isTop)
 
