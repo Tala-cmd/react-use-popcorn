@@ -96,7 +96,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched}) {
       {!isLoading && !error &&
         <>
         <header>
-          <button className="btn-back" onClick={onCloseMovie}>&larr;</button>
+          <button className="btn btn-back" onClick={onCloseMovie}>&larr;</button>
           <img src={poster} alt={`Poster of ${movie} movie`}/>
           <div className="details-overview">
             <h2>{title}</h2>
@@ -116,7 +116,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched}) {
               onSetRating={setUserRating}
             />
             {userRating > 0 && 
-              <button className="btn-add" onClick={handleAdd}>+ Add to List</button>
+              <button className="btn btn-add" onClick={handleAdd}>+ Add to List</button>
             } </>
             ) : <p>⭐You rated this movie with {watchedUserRating} stars</p>
             } 
